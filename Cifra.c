@@ -95,7 +95,7 @@ void genareteKey(char kString[], int *opr, int *key){
             break;
     }
     
-    for(int i = kString[1], int j = 1;i != 63; j++, i = kString[j]){
+    for(int i = kString[1], j = 1;i != 63; j++, i = kString[j]){
         *key = key + kString[j];
     }
 }
