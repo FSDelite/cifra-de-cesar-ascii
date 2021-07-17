@@ -35,14 +35,36 @@ void code(){
 
     FILE *newArq = NULL;
     newArq = fopen("codeFile.txt", "wt");
-    int key;
+    
+    
+    char kString[255];
     char value, replacement;
+    int opr, key;
+    
     printf("insert the key: ");
-    scanf("%d", &key);
+    scanf("%s", &kString);
 
-    while((value = getc(arq)) != EOF){
-          replacement =  value + key;
-          fprintf(newArq, "%c", replacement);
+    genareteKey(kString, &opr, &key);
+
+    if(opr == 0){
+        while((value = getc(arq)) != EOF){
+            replacement =  value + key;
+            fprintf(newArq, "%c", replacement);
+        }
+    }
+
+    if(opr == 1){
+        while((value = getc(arq)) != EOF){
+            replacement =  value * key;
+            fprintf(newArq, "%c", replacement);
+        }
+    }
+
+    if(opr == 2){
+        while((value = getc(arq)) != EOF){
+            replacement =  value - key;
+            fprintf(newArq, "%c", replacement);
+        }
     }
     fclose(arq);
     fclose(newArq);
@@ -64,15 +86,37 @@ void decode(){
 
     FILE *newArq = NULL;
     newArq = fopen("decodedFile.txt", "wt");
-    int key;
+    
+    char kString[255];
     char value, replacement;
+    int opr, key;
+    
     printf("insert the key: ");
-    scanf("%d", &key);
+    scanf("%s", &kString);
 
-    while((value = getc(arq)) != EOF){
-          replacement =  value - key;
-          fprintf(newArq, "%c", replacement);
+    genareteKey(kString, &opr, &key);
+
+    if(opr == 0){
+        while((value = getc(arq)) != EOF){
+            replacement =  value - key;
+            fprintf(newArq, "%c", replacement);
+        }
     }
+
+    if(opr == 1){
+        while((value = getc(arq)) != EOF){
+            replacement =  value / key;
+            fprintf(newArq, "%c", replacement);
+        }
+    }
+
+    if(opr == 2){
+        while((value = getc(arq)) != EOF){
+            replacement =  value + key;
+            fprintf(newArq, "%c", replacement);
+        }
+    }
+
     fclose(arq);
     fclose(newArq);
 
@@ -80,32 +124,21 @@ void decode(){
 }
 
 void genareteKey(char kString[], int *opr, int *key){
-    
-    key = 0;
 
     switch(kString[0]){
         case 'w':
-            *opr = 1; //SOMA
+            *opr = 1; //MULTIPLICACAO
             break;
         case 'r':
             *opr = 2; //SUBTRACAO
             break;
-        case 'f':
-            *opr = 3; //MULTIPLICACAO
-            break;
+        default:
+            *opr = 0; // SOMA
+
     }
-    
-    for(int i = kString[1], j = 1;i != 63; j++, i = kString[j]){
-        *key = key + kString[j];
+    int a=0;
+    for(int i = kString[0], j = 0;i != 63; j++, i = kString[j]){
+        a= a + kString[j];
     }
+    *key = a;
 }
-
-
-
-
-
-
-
-
-
-
