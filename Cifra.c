@@ -3,7 +3,7 @@
 
 void code();
 void decode();
-void genareteKey(char kString[]);
+void genareteKey(char kString[], int *opr, int *key);
 
 int main (void){
 
@@ -79,6 +79,26 @@ void decode(){
     printf("decode complete!");
 }
 
+void genareteKey(char kString[], int *opr, int *key){
+    
+    key = 0;
+
+    switch(kString[0]){
+        case 'w':
+            *opr = 1; //SOMA
+            break;
+        case 'r':
+            *opr = 2; //SUBTRACAO
+            break;
+        case 'f':
+            *opr = 3; //MULTIPLICACAO
+            break;
+    }
+    
+    for(int i = kString[1], int j = 1;i != 63; j++, i = kString[j]){
+        *key = key + kString[j];
+    }
+}
 
 
 
